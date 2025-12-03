@@ -14,78 +14,241 @@
     body {
       min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0d0d0d, #1f1f1f);
+      background: radial-gradient(circle at top, #3b3b3b, #050505);
       color: #fff;
       text-align: center;
-      padding: 20px 12px 70px;
+      padding: 20px 10px 60px;
     }
 
-    h1 {
+    .title {
+      margin-bottom: 10px;
+    }
+
+    .title h1 {
       font-size: 2.4rem;
-      margin-top: 10px;
-      margin-bottom: 6px;
+      line-height: 1.2;
     }
 
-    h2 {
+    .title h2 {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .heart {
+      color: #4aa3ff;
       font-size: 1.2rem;
-      opacity: 0.85;
-      margin-bottom: 25px;
     }
 
-    .gallery {
-      max-width: 850px;
+    .container {
+      max-width: 900px;
       margin: 0 auto;
+    }
+
+    /* SLIDER */
+    .slider {
+      margin: 25px auto 20px;
+      position: relative;
+      max-width: 900px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8);
+    }
+
+    .slide {
+      display: none;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-caption {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.55);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    .active-slide {
+      display: block;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(1.03); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .dots {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+
+    .dot.active-dot {
+      opacity: 1;
+      background: #4aa3ff;
+    }
+
+    /* GALLERY GRID */
+    .gallery {
+      margin-top: 25px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 
     .gallery img {
       width: 100%;
-      height: 260px;
+      height: 180px;
       object-fit: cover;
       border-radius: 12px;
-      border: 2px solid rgba(255,255,255,0.15);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: 0.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .gallery img:hover {
-      transform: scale(1.04);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.8);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8);
     }
 
     .message {
-      max-width: 760px;
-      margin: 30px auto 0;
-      font-size: 1.05rem;
+      margin-top: 28px;
+      font-size: 1.02rem;
       line-height: 1.7;
-      opacity: 0.92;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.95;
+    }
+
+    @media (max-width: 600px) {
+      .title h1 {
+        font-size: 2rem;
+      }
+
+      .slide img {
+        height: 260px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>Happy Birthday Mummy 🎂</h1>
-  <h2>With love 💙</h2>
+  <!-- 🎵 Background music (optional)
+       Put your mp3 link in src="" if you want autoplay music -->
+  <!--
+  <audio autoplay loop>
+    <source src="YOUR_MUSIC_LINK_HERE.mp3" type="audio/mpeg">
+  </audio>
+  -->
 
-  <div class="gallery">
+  <div class="container">
+    <div class="title">
+      <h1>Happy Birthday Mummy 🎂</h1>
+      <h2>With love <span class="heart">💙</span></h2>
+    </div>
 
-    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/1.jpeg" alt="Photo 1">
-    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/2.jpeg" alt="Photo 2">
-    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg" alt="Photo 3">
-    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg" alt="Photo 4">
-    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg" alt="Photo 5">
-    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg" alt="Photo 6">
+    <!-- SLIDER with your 6 photos -->
+    <div class="slider" id="slider">
+      <div class="slide active-slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/1.jpeg" alt="Photo 1">
+        <div class="slide-caption">Photo 1</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/2.jpeg" alt="Photo 2">
+        <div class="slide-caption">Photo 2</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg" alt="Photo 3">
+        <div class="slide-caption">Photo 3</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg" alt="Photo 4">
+        <div class="slide-caption">Photo 4</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg" alt="Photo 5">
+        <div class="slide-caption">Photo 5</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg" alt="Photo 6">
+        <div class="slide-caption">Photo 6</div>
+      </div>
+    </div>
 
+    <div class="dots" id="dots">
+      <div class="dot active-dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <!-- GALLERY GRID -->
+    <div class="gallery">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/1.jpeg" alt="Photo 1 small">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/2.jpeg" alt="Photo 2 small">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg" alt="Photo 3 small">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg" alt="Photo 4 small">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg" alt="Photo 5 small">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg" alt="Photo 6 small">
+    </div>
+
+    <p class="message">
+      Happy birthday Mummy — thank you for every sacrifice, every smile, every hug,
+      every lesson and every single moment of love. You are the heart of our family
+      and the strongest person we know. 💐❤️
+    </p>
   </div>
 
-  <p class="message">
-    Happy birthday Mummy — thank you for everything you do, every sacrifice,
-    every smile, every hug, every lesson, and every moment of love.
-    You are the heart of our family and the strongest person we know. 💐❤️
-  </p>
+  <!-- Simple slider script -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let current = 0;
 
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active-slide', i === index);
+      });
+      dots.forEach((d, i) => {
+        d.classList.toggle('active-dot', i === index);
+      });
+      current = index;
+    }
+
+    // Auto-change every 3 seconds
+    setInterval(() => {
+      const next = (current + 1) % slides.length;
+      showSlide(next);
+    }, 3000);
+
+    // Dot click control
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => showSlide(index));
+    });
+  </script>
 </body>
 </html>
-
