@@ -5,178 +5,345 @@
   <title>Happy Birthday Mummy 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      background: #000;
-      color: #fff;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #3b3b3b, #050505);
+      color: #fff;
       text-align: center;
       padding: 20px 10px 60px;
       overflow-x: hidden;
     }
 
-    h1 { font-size: 2.6rem; margin-bottom: 6px; }
-    h2 { font-size: 1.2rem; opacity: .9; }
-    .heart { color: #4aa3ff; }
+    .title {
+      margin-bottom: 10px;
+      animation: fadeDown 1s ease-out;
+    }
+
+    .title h1 {
+      font-size: 2.4rem;
+      line-height: 1.2;
+    }
+
+    .title h2 {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .heart {
+      color: #4aa3ff;
+      font-size: 1.2rem;
+    }
 
     .container {
-      max-width: 750px;
-      margin: auto;
-      margin-top: 20px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    /* PHOTO CARDS */
-    .card {
-      margin: 18px 0;
-      background: #111;
-      border-radius: 22px;
+    /* SLIDER */
+    .slider {
+      margin: 25px auto 20px;
+      position: relative;
+      max-width: 900px;
+      border-radius: 16px;
       overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.15);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.85);
-      animation: float 6s ease-in-out infinite;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8);
     }
 
-    /* Stagger animation */
-    .card:nth-child(2) { animation-delay: .5s; }
-    .card:nth-child(3) { animation-delay: 1s; }
-    .card:nth-child(4) { animation-delay: 1.5s; }
-    .card:nth-child(5) { animation-delay: 2s; }
-    .card:nth-child(6) { animation-delay: 2.5s; }
+    .slide {
+      display: none;
+    }
 
-    img {
+    .slide img {
       width: 100%;
-      height: 430px;
+      height: 340px;
       object-fit: cover;
-      transition: .4s;
+      display: block;
     }
 
-    img:hover { transform: scale(1.03); }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-7px); }
-      100% { transform: translateY(0); }
+    .slide-caption {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.55);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
     }
 
-    /* MESSAGE TEXT */
+    .active-slide {
+      display: block;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(1.03); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .dots {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .dot.active-dot {
+      opacity: 1;
+      background: #4aa3ff;
+      transform: scale(1.15);
+    }
+
+    /* GALLERY GRID */
+    .gallery {
+      margin-top: 25px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8);
+    }
+
     .message {
-      margin-top: 30px;
+      margin-top: 28px;
+      font-size: 1.02rem;
       line-height: 1.7;
-      font-size: 1.05rem;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
       opacity: 0.95;
-      padding: 0 12px;
-      animation: fade 1.4s ease-in-out;
+      animation: fadeIn 1.2s ease-in-out;
     }
 
-    @keyframes fade {
-      0% { opacity: 0; transform: scale(.98); }
-      100% { opacity: 1; transform: scale(1); }
+    @media (max-width: 600px) {
+      .title h1 {
+        font-size: 2rem;
+      }
+
+      .slide img {
+        height: 260px;
+      }
     }
 
     /* POPUP */
-    .popup-bg {
+    .popup-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.7);
+      background: rgba(0,0,0,0.65);
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: .4s;
+      transition: opacity 0.35s ease;
       z-index: 50;
     }
 
-    .popup-bg.show {
+    .popup-overlay.show {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .popup {
+    .popup-content {
       background: #111;
-      border-radius: 18px;
-      padding: 22px;
-      width: 80%;
+      border-radius: 16px;
+      padding: 20px 18px;
       max-width: 320px;
       text-align: left;
-      border: 1px solid rgba(255,255,255,.3);
-      animation: pop .4s ease-out;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.2);
+      animation: popupScale 0.4s ease-out;
     }
 
-    @keyframes pop {
-      0% { transform: scale(.9); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+    @keyframes popupScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to   { opacity: 1; transform: scale(1); }
     }
 
-    .popup button {
-      margin-top: 12px;
-      width: 100%;
-      padding: 8px;
-      border: none;
+    .popup-content h3 {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .popup-content p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .popup-content button {
       background: #4aa3ff;
-      border-radius: 999px;
-      font-size: 1rem;
-      cursor: pointer;
+      border: none;
       color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .popup-content button:hover {
+      opacity: 0.9;
+    }
+
+    /* CONFETTI */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 12px;
+      background-color: #ffd54f;
+      top: -10px;
+      z-index: 40;
+      opacity: 0.9;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotateZ(0deg); }
+      100% { transform: translateY(110vh) rotateZ(360deg); }
     }
   </style>
 </head>
 <body>
 
-<!-- 🎵 BACKGROUND MUSIC -->
+<!-- 🎵 MUSIC ADDED -->
 <audio autoplay loop>
   <source src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/mummy.mp3" type="audio/mpeg">
 </audio>
 
-<h1>Happy Birthday Mummy 🎂</h1>
-<h2>With love <span class="heart">💙</span></h2>
+  <div class="container">
+    <div class="title">
+      <h1>Happy Birthday Mummy 🎂</h1>
+      <h2>With love <span class="heart">💙</span></h2>
+    </div>
 
-<div class="container">
+    <!-- SLIDER -->
+    <div class="slider" id="slider">
+      <div class="slide active-slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg"></div>
+      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg"></div>
+      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg"></div>
+      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg"></div>
+      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg"></div>
+      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg"></div>
+    </div>
 
-  <div class="card"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg"></div>
+    <div class="dots" id="dots">
+      <div class="dot active-dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
 
-  <div class="card"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg"></div>
+    <!-- GALLERY -->
+    <div class="gallery">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg">
+    </div>
 
-  <div class="card"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg"></div>
-
-  <div class="card"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg"></div>
-
-  <div class="card"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg"></div>
-
-  <div class="card"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg"></div>
-
-</div>
-
-
-<p class="message">
-  Happy Birthday Mummy 💐  
-  Thank you for every sacrifice, every lesson, every smile,  
-  and every moment of love you've given us.  
-  You are the heart of our family — our strength and our happiness. ❤️  
-  We are forever grateful and blessed to have you.
-</p>
-
-<!-- POPUP -->
-<div class="popup-bg" id="pop">
-  <div class="popup">
-    <h3>💖 Special Message 💖</h3>
-    <p>
-      You are the most precious person in our lives.
-      May your life stay filled with happiness, good health and love.
-      We love you endlessly.
+    <p class="message">
+      Happy birthday Mummy — thank you for everything you do, every sacrifice, every smile,  
+      every hug, every lesson, and every moment of love.  
+      You are the heart of our family and the strongest person we know. 💐❤️
     </p>
-    <button onclick="closePopup()">Thank you 😊</button>
   </div>
-</div>
+
+  <!-- POPUP -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-content">
+      <h3>For the best Mummy 💖</h3>
+      <p>
+        Today is your day. Thank you for loving us, supporting us,
+        and being our biggest strength. You deserve all happiness. 💙
+      </p>
+      <button id="closePopup">Got it 😊</button>
+    </div>
+  </div>
 
 <script>
-  window.onload = () => setTimeout(() => {
-    document.getElementById("pop").classList.add("show");
-  }, 1000);
+  // Slider
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  let current = 0;
 
-  function closePopup() {
-    document.getElementById("pop").classList.remove("show");
+  function showSlide(i) {
+    slides.forEach((s, idx) => s.classList.toggle('active-slide', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('active-dot', idx === i));
+    current = i;
+  }
+
+  setInterval(() => showSlide((current + 1) % slides.length), 3000);
+
+  dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));
+
+  // Popup
+  const popup = document.getElementById('popup');
+  document.getElementById('closePopup').onclick = () => popup.classList.remove('show');
+
+  window.onload = () => {
+    setTimeout(() => popup.classList.add('show'), 1200);
+    launchConfetti();
+  };
+
+  // Confetti
+  function launchConfetti() {
+    const colors = ['#ffd54f', '#ff7676', '#82b1ff', '#b39ddb', '#80cbc4'];
+    for (let i = 0; i < 80; i++) {
+      const conf = document.createElement('div');
+      conf.className = 'confetti';
+      const size = Math.random() * 6 + 6;
+      conf.style.width = size + 'px';
+      conf.style.height = size + 4 + 'px';
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+      conf.style.animationDuration = Math.random() * 2 + 3 + 's';
+      conf.style.animationDelay = Math.random() * 2 + 's';
+      document.body.appendChild(conf);
+      setTimeout(() => conf.remove(), 7000);
+    }
   }
 </script>
 
