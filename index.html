@@ -18,10 +18,12 @@
       color: #fff;
       text-align: center;
       padding: 20px 10px 60px;
+      overflow-x: hidden;
     }
 
     .title {
       margin-bottom: 10px;
+      animation: fadeDown 1s ease-out;
     }
 
     .title h1 {
@@ -88,6 +90,11 @@
       to   { opacity: 1; transform: scale(1); }
     }
 
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .dots {
       margin-top: 8px;
       display: flex;
@@ -102,11 +109,13 @@
       border: 1px solid #fff;
       opacity: 0.5;
       cursor: pointer;
+      transition: transform 0.2s;
     }
 
     .dot.active-dot {
       opacity: 1;
       background: #4aa3ff;
+      transform: scale(1.15);
     }
 
     /* GALLERY GRID */
@@ -140,6 +149,7 @@
       margin-left: auto;
       margin-right: auto;
       opacity: 0.95;
+      animation: fadeIn 1.2s ease-in-out;
     }
 
     @media (max-width: 600px) {
@@ -151,17 +161,92 @@
         height: 260px;
       }
     }
+
+    /* POPUP */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 50;
+    }
+
+    .popup-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .popup-content {
+      background: #111;
+      border-radius: 16px;
+      padding: 20px 18px;
+      max-width: 320px;
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.2);
+      animation: popupScale 0.4s ease-out;
+    }
+
+    @keyframes popupScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .popup-content h3 {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .popup-content p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .popup-content button {
+      background: #4aa3ff;
+      border: none;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .popup-content button:hover {
+      opacity: 0.9;
+    }
+
+    /* CONFETTI */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 12px;
+      background-color: #ffd54f;
+      top: -10px;
+      z-index: 40;
+      opacity: 0.9;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotateZ(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotateZ(360deg);
+      }
+    }
   </style>
 </head>
 <body>
-
-  <!-- 🎵 Background music (optional)
-       Put your mp3 link in src="" if you want autoplay music -->
-  <!--
-  <audio autoplay loop>
-    <source src="YOUR_MUSIC_LINK_HERE.mp3" type="audio/mpeg">
-  </audio>
-  -->
 
   <div class="container">
     <div class="title">
@@ -169,14 +254,14 @@
       <h2>With love <span class="heart">💙</span></h2>
     </div>
 
-    <!-- SLIDER with your 6 photos -->
+    <!-- SLIDER with 6 photos -->
     <div class="slider" id="slider">
       <div class="slide active-slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/1.jpeg" alt="Photo 1">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg" alt="Photo 1">
         <div class="slide-caption">Photo 1</div>
       </div>
       <div class="slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/2.jpeg" alt="Photo 2">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg" alt="Photo 2">
         <div class="slide-caption">Photo 2</div>
       </div>
       <div class="slide">
@@ -208,8 +293,8 @@
 
     <!-- GALLERY GRID -->
     <div class="gallery">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/1.jpeg" alt="Photo 1 small">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/2.jpeg" alt="Photo 2 small">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg" alt="Photo 1 small">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg" alt="Photo 2 small">
       <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg" alt="Photo 3 small">
       <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg" alt="Photo 4 small">
       <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg" alt="Photo 5 small">
@@ -217,14 +302,27 @@
     </div>
 
     <p class="message">
-      Happy birthday Mummy — thank you for every sacrifice, every smile, every hug,
-      every lesson and every single moment of love. You are the heart of our family
-      and the strongest person we know. 💐❤️
+      Happy birthday Mummy — thank you for everything you do, every sacrifice,
+      every smile, every hug, every lesson, and every moment of love.
+      You are the heart of our family and the strongest person we know. 💐❤️
     </p>
   </div>
 
-  <!-- Simple slider script -->
+  <!-- POPUP -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-content">
+      <h3>For the best Mummy 💖</h3>
+      <p>
+        Today is your day. Thank you for standing with us in every situation,
+        for loving us even on our worst days, and for being our biggest strength.
+        This small page is just to say how special you are to us.
+      </p>
+      <button id="closePopup">Got it 😊</button>
+    </div>
+  </div>
+
   <script>
+    // Slider logic
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     let current = 0;
@@ -239,16 +337,52 @@
       current = index;
     }
 
-    // Auto-change every 3 seconds
     setInterval(() => {
       const next = (current + 1) % slides.length;
       showSlide(next);
     }, 3000);
 
-    // Dot click control
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => showSlide(index));
     });
+
+    // Popup logic
+    const popup = document.getElementById('popup');
+    const closePopupBtn = document.getElementById('closePopup');
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        popup.classList.add('show');
+      }, 1200);
+      launchConfetti();
+    });
+
+    closePopupBtn.addEventListener('click', () => {
+      popup.classList.remove('show');
+    });
+
+    // Simple confetti
+    function launchConfetti() {
+      const colors = ['#ffd54f', '#ff7676', '#82b1ff', '#b39ddb', '#80cbc4'];
+
+      for (let i = 0; i < 80; i++) {
+        const conf = document.createElement('div');
+        conf.classList.add('confetti');
+        const size = Math.random() * 6 + 6; // 6–12px
+        conf.style.width = size + 'px';
+        conf.style.height = (size + 4) + 'px';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        conf.style.animationDelay = (Math.random() * 2) + 's';
+        document.body.appendChild(conf);
+
+        // Remove after animation
+        setTimeout(() => {
+          conf.remove();
+        }, 7000);
+      }
+    }
   </script>
 </body>
 </html>
