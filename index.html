@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Happy Birthday RALPH 🎉</title>
+  <title>Happy Birthday MUMMY 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +33,7 @@
       opacity: 0.9;
     }
 
-    .heart { color: #4aa3ff; font-size: 1.2rem; }
+    .heart-text { color: #4aa3ff; font-size: 1.2rem; }
 
     .wrapper {
       max-width: 1000px;
@@ -159,6 +159,7 @@
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.2);
       animation: popupScale .4s ease;
+      text-align: left;
     }
 
     .popup-content button {
@@ -170,6 +171,7 @@
       margin-top: 12px;
       cursor: pointer;
       font-weight: bold;
+      width: 100%;
     }
 
     /* Music Button */
@@ -186,13 +188,10 @@
       font-weight: 600;
       display: none;
       z-index: 300;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.7);
     }
 
     #playMusicBtn.show { display: block; }
-
-    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-    @keyframes popupScale { from {transform:scale(.9);} to {transform:scale(1);} }
-    @keyframes fadeDown { from {opacity:0; transform:translateY(-10px);} to {opacity:1;} }
 
     /* Confetti */
     .confetti {
@@ -205,10 +204,28 @@
       z-index: 100;
     }
 
+    /* Cursor hearts */
+    .cursor-heart {
+      position: fixed;
+      font-size: 18px;
+      pointer-events: none;
+      z-index: 250;
+      animation: heartUp 1s ease-out forwards;
+    }
+
+    @keyframes heartUp {
+      0%   { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-40px) scale(1.4); opacity: 0; }
+    }
+
     @keyframes fall {
       from { transform: translateY(0) rotate(0); }
       to   { transform: translateY(120vh) rotate(360deg); }
     }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes popupScale { from {transform:scale(.9); opacity:0;} to {transform:scale(1); opacity:1;} }
+    @keyframes fadeDown { from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
 
     @media (max-width:800px){
       .wrapper{flex-direction:column;align-items:stretch;}
@@ -223,15 +240,15 @@
 <audio id="bgAudio" loop preload="auto" playsinline>
   <source src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/mummy.mp3" type="audio/mpeg">
 </audio>
-<button id="playMusicBtn">Play Music 🎵</button>
+<button id="playMusicBtn">Play music 🎵</button>
 
 <div class="title">
   <h1>Happy Birthday Mummy 🎂</h1>
-  <h2>With love 💙</h2>
+  <h2>With love <span class="heart-text">💙</span></h2>
 </div>
 
 <div class="wrapper">
-  <div class="thumbs" id="thumbs">
+  <div class="thumbs">
     <img data-index="0" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg" class="active-thumb">
     <img data-index="1" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg">
     <img data-index="2" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg">
@@ -240,18 +257,41 @@
     <img data-index="5" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg">
   </div>
 
-  <div class="slider" id="slider">
-    <div class="slide active-slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg"><div class="slide-caption">Photo 1</div></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg"><div class="slide-caption">Photo 2</div></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg"><div class="slide-caption">Photo 3</div></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg"><div class="slide-caption">Photo 4</div></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg"><div class="slide-caption">Photo 5</div></div>
-    <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg"><div class="slide-caption">Photo 6</div></div>
+  <div class="slider">
+    <div class="slide active-slide">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg">
+      <div class="slide-caption">Photo 1</div>
+    </div>
+    <div class="slide">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg">
+      <div class="slide-caption">Photo 2</div>
+    </div>
+    <div class="slide">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg">
+      <div class="slide-caption">Photo 3</div>
+    </div>
+    <div class="slide">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg">
+      <div class="slide-caption">Photo 4</div>
+    </div>
+    <div class="slide">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg">
+      <div class="slide-caption">Photo 5</div>
+    </div>
+    <div class="slide">
+      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg">
+      <div class="slide-caption">Photo 6</div>
+    </div>
   </div>
 </div>
 
-<div class="dots" id="dots">
-  <div class="dot active-dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+<div class="dots">
+  <div class="dot active-dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
 </div>
 
 <p class="message">
@@ -273,11 +313,10 @@
   </div>
 </div>
 
-
 <script>
-  // Slider Logic
+  // Slider
   const slides = document.querySelectorAll('.slide');
-  const dots = document.querySelectorAll('.dot');
+  const dots   = document.querySelectorAll('.dot');
   const thumbs = document.querySelectorAll('.thumbs img');
   let current = 0;
 
@@ -285,7 +324,7 @@
     slides.forEach((s,idx)=>s.classList.toggle('active-slide',idx===i));
     dots.forEach((d,idx)=>d.classList.toggle('active-dot',idx===i));
     thumbs.forEach((t,idx)=>t.classList.toggle('active-thumb',idx===i));
-    current=i;
+    current = i;
   }
 
   setInterval(()=>showSlide((current+1)%slides.length),3000);
@@ -293,13 +332,11 @@
   dots.forEach((dot,i)=>dot.addEventListener('click',()=>showSlide(i)));
   thumbs.forEach((t,i)=>t.addEventListener('click',()=>showSlide(i)));
 
-
   // Popup
-  const popup=document.getElementById('popup');
-  const closePopup=document.getElementById('closePopup');
+  const popup = document.getElementById('popup');
+  const closePopup = document.getElementById('closePopup');
   window.addEventListener('load',()=>setTimeout(()=>popup.classList.add('show'),900));
   closePopup.addEventListener('click',()=>popup.classList.remove('show'));
-
 
   // Confetti
   function launchConfetti(){
@@ -310,30 +347,59 @@
       c.style.left=Math.random()*100+'vw';
       c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
       c.style.animationDuration=(Math.random()*2+3)+'s';
+      c.style.animationDelay=(Math.random()*2)+'s';
       document.body.appendChild(c);
       setTimeout(()=>c.remove(),7000);
     }
   }
   launchConfetti();
 
+  // Music autoplay + button
+  const audio = document.getElementById('bgAudio');
+  const playBtn = document.getElementById('playMusicBtn');
 
-  // Music Autoplay + Fallback Button
-  const audio=document.getElementById('bgAudio');
-  const btn=document.getElementById('playMusicBtn');
-
-  function tryPlay(){
-    let playPromise=audio.play();
-    if(playPromise!==undefined){
-      playPromise.then(()=>{}).catch(()=>btn.classList.add('show'));
+  function tryPlay() {
+    const p = audio.play();
+    if (p && typeof p.then === 'function') {
+      p.then(() => {}).catch(() => playBtn.classList.add('show'));
+    } else {
+      playBtn.classList.add('show');
     }
   }
 
-  btn.addEventListener('click',()=>{
-    audio.play().then(()=>btn.classList.remove('show'));
+  playBtn.addEventListener('click', () => {
+    audio.play().then(()=> playBtn.classList.remove('show'))
+                .catch(()=> playBtn.classList.add('show'));
   });
 
-  window.addEventListener('load',tryPlay);
-  window.addEventListener('click',()=>audio.play().catch(()=>{}));
+  window.addEventListener('load', tryPlay);
+
+  // Extra: on first click anywhere, also try to start music + make heart
+  let interacted = false;
+  function firstInteraction(e){
+    if (!interacted) {
+      interacted = true;
+      audio.play().catch(()=> playBtn.classList.add('show'));
+    }
+    createHeart(e.clientX, e.clientY);
+  }
+
+  window.addEventListener('click', firstInteraction);
+  window.addEventListener('touchstart', (e)=>{
+    const t = e.touches[0];
+    firstInteraction({clientX: t.clientX, clientY: t.clientY});
+  }, {passive:true});
+
+  // Cursor hearts
+  function createHeart(x,y){
+    const h = document.createElement('div');
+    h.className = 'cursor-heart';
+    h.textContent = '💜';
+    h.style.left = x + 'px';
+    h.style.top  = y + 'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 1000);
+  }
 </script>
 
 </body>
