@@ -2,14 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Happy Birthday Ralph 🎉</title>
+  <title>Happy Birthday Mummy 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
@@ -17,7 +13,7 @@
       background: radial-gradient(circle at top, #3b3b3b, #050505);
       color: #fff;
       text-align: center;
-      padding: 20px 10px 60px;
+      padding: 20px 10px 40px;
       overflow-x: hidden;
     }
 
@@ -32,7 +28,7 @@
     }
 
     .title h2 {
-      margin-top: 8px;
+      margin-top: 6px;
       font-size: 1.1rem;
       opacity: 0.9;
     }
@@ -42,20 +38,50 @@
       font-size: 1.2rem;
     }
 
-    .container {
-      max-width: 900px;
+    .wrapper {
+      max-width: 1000px;
       margin: 0 auto;
+      margin-top: 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
     }
 
-    /* SLIDER */
+    /* LEFT THUMB COLUMN */
+    .thumbs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 26%;
+    }
+
+    .thumbs img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.18);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+      opacity: 0.9;
+      cursor: pointer;
+      transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .thumbs img:hover,
+    .thumbs img.active-thumb {
+      transform: scale(1.03);
+      opacity: 1;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.8);
+    }
+
+    /* MAIN SLIDER (RIGHT) */
     .slider {
-      margin: 25px auto 20px;
       position: relative;
-      max-width: 900px;
-      border-radius: 16px;
+      flex: 1;
+      border-radius: 18px;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.85);
     }
 
     .slide {
@@ -64,9 +90,14 @@
 
     .slide img {
       width: 100%;
-      height: 340px;
+      height: 420px;
       object-fit: cover;
       display: block;
+    }
+
+    .active-slide {
+      display: block;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .slide-caption {
@@ -78,21 +109,6 @@
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.9rem;
-    }
-
-    .active-slide {
-      display: block;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(1.03); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-12px); }
-      to   { opacity: 1; transform: translateY(0); }
     }
 
     .dots {
@@ -118,31 +134,9 @@
       transform: scale(1.15);
     }
 
-    /* GALLERY GRID */
-    .gallery {
-      margin-top: 25px;
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .gallery img:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8);
-    }
-
+    /* MESSAGE */
     .message {
-      margin-top: 28px;
+      margin-top: 24px;
       font-size: 1.02rem;
       line-height: 1.7;
       max-width: 760px;
@@ -150,16 +144,6 @@
       margin-right: auto;
       opacity: 0.95;
       animation: fadeIn 1.2s ease-in-out;
-    }
-
-    @media (max-width: 600px) {
-      .title h1 {
-        font-size: 2rem;
-      }
-
-      .slide img {
-        height: 260px;
-      }
     }
 
     /* POPUP */
@@ -190,11 +174,6 @@
       box-shadow: 0 10px 24px rgba(0,0,0,0.8);
       border: 1px solid rgba(255,255,255,0.2);
       animation: popupScale 0.4s ease-out;
-    }
-
-    @keyframes popupScale {
-      from { opacity: 0; transform: scale(0.9); }
-      to   { opacity: 1; transform: scale(1); }
     }
 
     .popup-content h3 {
@@ -236,116 +215,178 @@
       animation-iteration-count: infinite;
     }
 
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(1.03); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popupScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
     @keyframes fall {
-      0% { transform: translateY(0) rotateZ(0deg); }
+      0%   { transform: translateY(0) rotateZ(0deg); }
       100% { transform: translateY(110vh) rotateZ(360deg); }
+    }
+
+    @media (max-width: 800px) {
+      .wrapper {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .thumbs {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        order: 2;
+      }
+      .thumbs img {
+        width: 120px;
+        height: 90px;
+      }
+      .slider {
+        order: 1;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- 🎵 MUSIC ADDED -->
-<audio autoplay loop>
-  <source src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/mummy.mp3" type="audio/mpeg">
-</audio>
+  <!-- 🎵 MUSIC -->
+  <audio autoplay loop>
+    <source src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/mummy.mp3" type="audio/mpeg">
+  </audio>
 
-  <div class="container">
-    <div class="title">
-      <h1>Happy Birthday Mummy 🎂</h1>
-      <h2>With love <span class="heart">💙</span></h2>
-    </div>
-
-    <!-- SLIDER -->
-    <div class="slider" id="slider">
-      <div class="slide active-slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg"></div>
-      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg"></div>
-      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg"></div>
-      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg"></div>
-      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg"></div>
-      <div class="slide"><img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg"></div>
-    </div>
-
-    <div class="dots" id="dots">
-      <div class="dot active-dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-
-    <!-- GALLERY -->
-    <div class="gallery">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg">
-    </div>
-
-    <p class="message">
-      Happy birthday Mummy — thank you for everything you do, every sacrifice, every smile,  
-      every hug, every lesson, and every moment of love.  
-      You are the heart of our family and the strongest person we know. 💐❤️
-    </p>
+  <div class="title">
+    <h1>Happy Birthday Mummy 🎂</h1>
+    <h2>With love <span class="heart">💙</span></h2>
   </div>
+
+  <div class="wrapper">
+    <!-- LEFT THUMBS -->
+    <div class="thumbs" id="thumbs">
+      <img data-index="0" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg" class="active-thumb">
+      <img data-index="1" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg">
+      <img data-index="2" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg">
+      <img data-index="3" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg">
+      <img data-index="4" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg">
+      <img data-index="5" src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg">
+    </div>
+
+    <!-- RIGHT SLIDER -->
+    <div class="slider" id="slider">
+      <div class="slide active-slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg">
+        <div class="slide-caption">Photo 1</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg">
+        <div class="slide-caption">Photo 2</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg">
+        <div class="slide-caption">Photo 3</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg">
+        <div class="slide-caption">Photo 4</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg">
+        <div class="slide-caption">Photo 5</div>
+      </div>
+      <div class="slide">
+        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg">
+        <div class="slide-caption">Photo 6</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dots" id="dots">
+    <div class="dot active-dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <p class="message">
+    Happy birthday Mummy — thank you for everything you do, every sacrifice, every smile,
+    every hug, every lesson, and every moment of love. You are the heart of our family
+    and the strongest person we know. 💐❤️
+  </p>
 
   <!-- POPUP -->
   <div class="popup-overlay" id="popup">
     <div class="popup-content">
       <h3>For the best Mummy 💖</h3>
       <p>
-        Today is your day. Thank you for loving us, supporting us,
-        and being our biggest strength. You deserve all happiness. 💙
+        Today is your day. Thank you for standing with us in every situation,
+        for loving us even on our worst days, and for being our biggest strength.
+        This small page is just to show how special you are to us.
       </p>
-      <button id="closePopup">THANKYOU💟😊</button>
+      <button id="closePopup">THANKYOU 💟😊</button>
     </div>
   </div>
 
-<script>
-  // Slider
-  const slides = document.querySelectorAll('.slide');
-  const dots = document.querySelectorAll('.dot');
-  let current = 0;
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const thumbs = document.querySelectorAll('.thumbs img');
+    let current = 0;
 
-  function showSlide(i) {
-    slides.forEach((s, idx) => s.classList.toggle('active-slide', idx === i));
-    dots.forEach((d, idx) => d.classList.toggle('active-dot', idx === i));
-    current = i;
-  }
-
-  setInterval(() => showSlide((current + 1) % slides.length), 3000);
-
-  dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));
-
-  // Popup
-  const popup = document.getElementById('popup');
-  document.getElementById('closePopup').onclick = () => popup.classList.remove('show');
-
-  window.onload = () => {
-    setTimeout(() => popup.classList.add('show'), 1200);
-    launchConfetti();
-  };
-
-  // Confetti
-  function launchConfetti() {
-    const colors = ['#ffd54f', '#ff7676', '#82b1ff', '#b39ddb', '#80cbc4'];
-    for (let i = 0; i < 80; i++) {
-      const conf = document.createElement('div');
-      conf.className = 'confetti';
-      const size = Math.random() * 6 + 6;
-      conf.style.width = size + 'px';
-      conf.style.height = size + 4 + 'px';
-      conf.style.left = Math.random() * 100 + 'vw';
-      conf.style.background = colors[Math.floor(Math.random() * colors.length)];
-      conf.style.animationDuration = Math.random() * 2 + 3 + 's';
-      conf.style.animationDelay = Math.random() * 2 + 's';
-      document.body.appendChild(conf);
-      setTimeout(() => conf.remove(), 7000);
+    function showSlide(i) {
+      slides.forEach((s, idx) => s.classList.toggle('active-slide', idx === i));
+      dots.forEach((d, idx) => d.classList.toggle('active-dot', idx === i));
+      thumbs.forEach((t, idx) => t.classList.toggle('active-thumb', idx === i));
+      current = i;
     }
-  }
-</script>
 
+    setInterval(() => {
+      const next = (current + 1) % slides.length;
+      showSlide(next);
+    }, 3000);
+
+    dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
+    thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => showSlide(i)));
+
+    // Popup
+    const popup = document.getElementById('popup');
+    const closePopup = document.getElementById('closePopup');
+
+    window.addEventListener('load', () => {
+      setTimeout(() => popup.classList.add('show'), 1200);
+      launchConfetti();
+    });
+
+    closePopup.addEventListener('click', () => popup.classList.remove('show'));
+
+    // Confetti
+    function launchConfetti() {
+      const colors = ['#ffd54f', '#ff7676', '#82b1ff', '#b39ddb', '#80cbc4'];
+      for (let i = 0; i < 80; i++) {
+        const conf = document.createElement('div');
+        conf.classList.add('confetti');
+        const size = Math.random() * 6 + 6;
+        conf.style.width = size + 'px';
+        conf.style.height = size + 4 + 'px';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        conf.style.animationDelay = (Math.random() * 2) + 's';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 7000);
+      }
+    }
+  </script>
 </body>
 </html>
