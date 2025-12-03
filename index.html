@@ -14,375 +14,77 @@
     body {
       min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #3b3b3b, #050505);
+      background: linear-gradient(135deg, #0d0d0d, #1f1f1f);
       color: #fff;
       text-align: center;
-      padding: 20px 10px 60px;
-      overflow-x: hidden;
+      padding: 20px 12px 70px;
     }
 
-    .title {
-      margin-bottom: 10px;
-      animation: fadeDown 1s ease-out;
-    }
-
-    .title h1 {
+    h1 {
       font-size: 2.4rem;
-      line-height: 1.2;
+      margin-top: 10px;
+      margin-bottom: 6px;
     }
 
-    .title h2 {
-      margin-top: 8px;
-      font-size: 1.1rem;
-      opacity: 0.9;
-    }
-
-    .heart {
-      color: #4aa3ff;
+    h2 {
       font-size: 1.2rem;
+      opacity: 0.85;
+      margin-bottom: 25px;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    /* SLIDER */
-    .slider {
-      margin: 25px auto 20px;
-      position: relative;
-      max-width: 900px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8);
-    }
-
-    .slide {
-      display: none;
-    }
-
-    .slide img {
-      width: 100%;
-      height: 340px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .slide-caption {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.55);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-    }
-
-    .active-slide {
-      display: block;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(1.03); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .dots {
-      margin-top: 8px;
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: 1px solid #fff;
-      opacity: 0.5;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .dot.active-dot {
-      opacity: 1;
-      background: #4aa3ff;
-      transform: scale(1.15);
-    }
-
-    /* GALLERY GRID */
     .gallery {
-      margin-top: 25px;
+      max-width: 850px;
+      margin: 0 auto;
       display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
     }
 
     .gallery img {
       width: 100%;
-      height: 180px;
+      height: 260px;
       object-fit: cover;
       border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      transition: 0.3s ease;
     }
 
     .gallery img:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8);
+      transform: scale(1.04);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.8);
     }
 
     .message {
-      margin-top: 28px;
-      font-size: 1.02rem;
-      line-height: 1.7;
       max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
-      opacity: 0.95;
-      animation: fadeIn 1.2s ease-in-out;
-    }
-
-    @media (max-width: 600px) {
-      .title h1 {
-        font-size: 2rem;
-      }
-
-      .slide img {
-        height: 260px;
-      }
-    }
-
-    /* POPUP */
-    .popup-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
-      z-index: 50;
-    }
-
-    .popup-overlay.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .popup-content {
-      background: #111;
-      border-radius: 16px;
-      padding: 20px 18px;
-      max-width: 320px;
-      text-align: left;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.8);
-      border: 1px solid rgba(255,255,255,0.2);
-      animation: popupScale 0.4s ease-out;
-    }
-
-    @keyframes popupScale {
-      from { opacity: 0; transform: scale(0.9); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    .popup-content h3 {
-      margin-bottom: 8px;
-      font-size: 1.2rem;
-    }
-
-    .popup-content p {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-
-    .popup-content button {
-      background: #4aa3ff;
-      border: none;
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    .popup-content button:hover {
-      opacity: 0.9;
-    }
-
-    /* CONFETTI */
-    .confetti {
-      position: fixed;
-      width: 8px;
-      height: 12px;
-      background-color: #ffd54f;
-      top: -10px;
-      z-index: 40;
-      opacity: 0.9;
-      animation-name: fall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotateZ(0deg);
-      }
-      100% {
-        transform: translateY(110vh) rotateZ(360deg);
-      }
+      margin: 30px auto 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      opacity: 0.92;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="title">
-      <h1>Happy Birthday Mummy 🎂</h1>
-      <h2>With love <span class="heart">💙</span></h2>
-    </div>
+  <h1>Happy Birthday Mummy 🎂</h1>
+  <h2>With love 💙</h2>
 
-    <!-- SLIDER with 6 photos -->
-    <div class="slider" id="slider">
-      <div class="slide active-slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg" alt="Photo 1">
-        <div class="slide-caption">Photo 1</div>
-      </div>
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg" alt="Photo 2">
-        <div class="slide-caption">Photo 2</div>
-      </div>
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg" alt="Photo 3">
-        <div class="slide-caption">Photo 3</div>
-      </div>
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg" alt="Photo 4">
-        <div class="slide-caption">Photo 4</div>
-      </div>
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg" alt="Photo 5">
-        <div class="slide-caption">Photo 5</div>
-      </div>
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg" alt="Photo 6">
-        <div class="slide-caption">Photo 6</div>
-      </div>
-    </div>
+  <div class="gallery">
 
-    <div class="dots" id="dots">
-      <div class="dot active-dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
+    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/1.jpeg" alt="Photo 1">
+    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/2.jpeg" alt="Photo 2">
+    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg" alt="Photo 3">
+    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg" alt="Photo 4">
+    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg" alt="Photo 5">
+    <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg" alt="Photo 6">
 
-    <!-- GALLERY GRID -->
-    <div class="gallery">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.09.04.jpeg" alt="Photo 1 small">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/WhatsApp%20Image%202025-12-03%20at%2022.11.18.jpeg" alt="Photo 2 small">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/3.jpeg" alt="Photo 3 small">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/4.jpeg" alt="Photo 4 small">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/5.jpeg" alt="Photo 5 small">
-      <img src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/images/6.jpeg" alt="Photo 6 small">
-    </div>
-
-    <p class="message">
-      Happy birthday Mummy — thank you for everything you do, every sacrifice,
-      every smile, every hug, every lesson, and every moment of love.
-      You are the heart of our family and the strongest person we know. 💐❤️
-    </p>
   </div>
 
-  <!-- POPUP -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup-content">
-      <h3>For the best Mummy 💖</h3>
-      <p>
-        Today is your day. Thank you for standing with us in every situation,
-        for loving us even on our worst days, and for being our biggest strength.
-        This small page is just to say how special you are to us.
-      </p>
-      <button id="closePopup">Got it 😊</button>
-    </div>
-  </div>
+  <p class="message">
+    Happy birthday Mummy — thank you for everything you do, every sacrifice,
+    every smile, every hug, every lesson, and every moment of love.
+    You are the heart of our family and the strongest person we know. 💐❤️
+  </p>
 
-  <script>
-    // Slider logic
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    let current = 0;
-
-    function showSlide(index) {
-      slides.forEach((s, i) => {
-        s.classList.toggle('active-slide', i === index);
-      });
-      dots.forEach((d, i) => {
-        d.classList.toggle('active-dot', i === index);
-      });
-      current = index;
-    }
-
-    setInterval(() => {
-      const next = (current + 1) % slides.length;
-      showSlide(next);
-    }, 3000);
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => showSlide(index));
-    });
-
-    // Popup logic
-    const popup = document.getElementById('popup');
-    const closePopupBtn = document.getElementById('closePopup');
-
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        popup.classList.add('show');
-      }, 1200);
-      launchConfetti();
-    });
-
-    closePopupBtn.addEventListener('click', () => {
-      popup.classList.remove('show');
-    });
-
-    // Simple confetti
-    function launchConfetti() {
-      const colors = ['#ffd54f', '#ff7676', '#82b1ff', '#b39ddb', '#80cbc4'];
-
-      for (let i = 0; i < 80; i++) {
-        const conf = document.createElement('div');
-        conf.classList.add('confetti');
-        const size = Math.random() * 6 + 6; // 6–12px
-        conf.style.width = size + 'px';
-        conf.style.height = (size + 4) + 'px';
-        conf.style.left = Math.random() * 100 + 'vw';
-        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        conf.style.animationDuration = (Math.random() * 2 + 3) + 's';
-        conf.style.animationDelay = (Math.random() * 2) + 's';
-        document.body.appendChild(conf);
-
-        // Remove after animation
-        setTimeout(() => {
-          conf.remove();
-        }, 7000);
-      }
-    }
-  </script>
 </body>
 </html>
