@@ -174,25 +174,6 @@
       width: 100%;
     }
 
-    /* Music Button */
-    #playMusicBtn {
-      position: fixed;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 18px;
-      background: #4aa3ff;
-      color: #fff;
-      border-radius: 999px;
-      border: none;
-      font-weight: 600;
-      display: none;
-      z-index: 300;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.7);
-    }
-
-    #playMusicBtn.show { display: block; }
-
     /* Confetti */
     .confetti {
       position: fixed;
@@ -240,7 +221,6 @@
 <audio id="bgAudio" loop preload="auto" playsinline>
   <source src="https://raw.githubusercontent.com/RalphDeni/mom-s-birthday/main/mummy.mp3" type="audio/mpeg">
 </audio>
-<button id="playMusicBtn">Play music 🎵</button>
 
 <div class="title">
   <h1>Happy Birthday Mummy 🎂</h1>
@@ -314,7 +294,7 @@
 </div>
 
 <script>
-  // Slider
+  // Slider logic
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot');
   const thumbs = document.querySelectorAll('.thumbs img');
@@ -328,78 +308,50 @@
   }
 
   setInterval(()=>showSlide((current+1)%slides.length),3000);
-
   dots.forEach((dot,i)=>dot.addEventListener('click',()=>showSlide(i)));
   thumbs.forEach((t,i)=>t.addEventListener('click',()=>showSlide(i)));
 
-  // Popup
+  // Popup + Music trigger
   const popup = document.getElementById('popup');
   const closePopup = document.getElementById('closePopup');
-  window.addEventListener('load',()=>setTimeout(()=>popup.classList.add('show'),900));
-  closePopup.addEventListener('click',()=>popup.classList.remove('show'));
+  const audio = document.getElementById('bgAudio');
+
+  window.addEventListener('load',()=>{
+    setTimeout(()=>popup.classList.add('show'),900);
+  });
+
+  closePopup.addEventListener('click',()=>{
+    popup.classList.remove('show');
+    audio.play().catch(()=>{});
+  });
+
+  // Hearts
+  function heartEffect(x,y){
+    const h=document.createElement('div');
+    h.className='cursor-heart';
+    h.textContent='💜';
+    h.style.left=x+'px';
+    h.style.top=y+'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1000);
+  }
+
+  window.addEventListener('click',e=>heartEffect(e.clientX,e.clientY));
 
   // Confetti
-  function launchConfetti(){
-    const colors=['#ffd54f','#ff7676','#82b1ff','#b39ddb','#80cbc4'];
+  const colors=['#ffd54f','#ff7676','#82b1ff','#b39ddb','#80cbc4'];
+  function confetti(){
     for(let i=0;i<80;i++){
       const c=document.createElement('div');
       c.classList.add('confetti');
       c.style.left=Math.random()*100+'vw';
-      c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+      c.style.background=colors[Math.floor(Math.random()*colors.length)];
       c.style.animationDuration=(Math.random()*2+3)+'s';
-      c.style.animationDelay=(Math.random()*2)+'s';
       document.body.appendChild(c);
-      setTimeout(()=>c.remove(),7000);
+      setTimeout(()=>c.remove(),6000);
     }
   }
-  launchConfetti();
-
-  // Music autoplay + button
-  const audio = document.getElementById('bgAudio');
-  const playBtn = document.getElementById('playMusicBtn');
-
-  function tryPlay() {
-    const p = audio.play();
-    if (p && typeof p.then === 'function') {
-      p.then(() => {}).catch(() => playBtn.classList.add('show'));
-    } else {
-      playBtn.classList.add('show');
-    }
-  }
-
-  playBtn.addEventListener('click', () => {
-    audio.play().then(()=> playBtn.classList.remove('show'))
-                .catch(()=> playBtn.classList.add('show'));
-  });
-
-  window.addEventListener('load', tryPlay);
-
-  // Extra: on first click anywhere, also try to start music + make heart
-  let interacted = false;
-  function firstInteraction(e){
-    if (!interacted) {
-      interacted = true;
-      audio.play().catch(()=> playBtn.classList.add('show'));
-    }
-    createHeart(e.clientX, e.clientY);
-  }
-
-  window.addEventListener('click', firstInteraction);
-  window.addEventListener('touchstart', (e)=>{
-    const t = e.touches[0];
-    firstInteraction({clientX: t.clientX, clientY: t.clientY});
-  }, {passive:true});
-
-  // Cursor hearts
-  function createHeart(x,y){
-    const h = document.createElement('div');
-    h.className = 'cursor-heart';
-    h.textContent = '💜';
-    h.style.left = x + 'px';
-    h.style.top  = y + 'px';
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(), 1000);
-  }
+  confetti();
 </script>
 
 </body>
